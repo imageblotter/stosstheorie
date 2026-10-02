@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stoßtheorie – Wie Reaktionen entstehen</title>
+<meta name="description" content="Interaktive Animationen zur Stoßtheorie und zum Einfluss von Temperatur, Konzentration, Zerteilungsgrad und Katalysator auf die Reaktionsgeschwindigkeit.">
+<link rel="stylesheet" href="css/style.css?v=4">
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="#intro">Idee</a>
+  <a href="#bedingungen">Bedingungen</a>
+  <a href="#labor">Labor</a>
+  <a href="#f-konz">Konzentration</a>
+  <a href="#f-temp">Temperatur</a>
+  <a href="#f-zert">Zerteilung</a>
+  <a href="#f-kat">Katalysator</a>
+  <a href="#fazit">Fazit &amp; Quiz</a>
+</nav>
+
+<header class="hero">
+  <p class="eyebrow">Chemie · Reaktionskinetik</p>
+  <h1>Stoßtheorie</h1>
+  <p class="lead">Warum laufen manche Reaktionen in Sekunden ab und andere in Jahren? Die Antwort liegt in den Teilchen: Sie müssen zusammenstoßen – und das ist längst nicht genug.</p>
+  <a class="btn" href="#intro">Los geht's ↓</a>
+</header>
+
+<main>
+
+<!-- ============ 1. Idee ============ -->
+<section id="intro">
+  <h2>1 · Die Grundidee</h2>
+  <p>Nach der <strong>Stoßtheorie</strong> (Kollisionstheorie) reagieren Teilchen nur dann miteinander, wenn sie <strong>zusammenstoßen</strong>. Die <strong>Reaktionsgeschwindigkeit</strong> hängt also davon ab, <em>wie viele wirksame Stöße</em> pro Zeit stattfinden.</p>
+  <p>Unten fliegen Teilchen <span class="chip a">A</span> und <span class="chip b">B</span> ungeordnet umher und stoßen ständig zusammen. Beobachte, wie selten ein Stoß tatsächlich zu einer Reaktion führt (grüner Ring). Der <span class="dot"></span> rote Punkt markiert die reaktive Stelle des Teilchens.</p>
+  <div class="stage">
+    <canvas id="introCanvas" width="600" height="400"></canvas>
+    <div class="legend">
+      <span><i class="ring" style="border-color:var(--green)"></i> Reaktion</span>
+      <span><i class="ring" style="border-color:var(--yellow)"></i> zu wenig Energie</span>
+      <span><i class="ring" style="border-color:var(--violet)"></i> falsche Orientierung</span>
+    </div>
+    <div class="stats">
+      <div><b id="iAB">0</b><span>A–B-Stöße</span></div>
+      <div><b id="iEff">0</b><span>davon wirksam</span></div>
+      <div><b id="iPct">–</b><span>Anteil wirksam</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. Bedingungen ============ -->
+<section id="bedingungen">
+  <h2>2 · Wann führt ein Stoß zur Reaktion?</h2>
+  <p>Drei Bedingungen müssen <strong>gleichzeitig</strong> erfüllt sein:</p>
+  <div class="grid3">
+    <figure class="card">
+      <canvas id="sc1" width="360" height="300"></canvas>
+      <figcaption><h3>① Die Teilchen müssen sich treffen</h3><p>Ohne Zusammenstoß keine Reaktion. Teilchen, die aneinander vorbeifliegen, bleiben unverändert.</p></figcaption>
+    </figure>
+    <figure class="card">
+      <canvas id="sc2" width="360" height="300"></canvas>
+      <figcaption><h3>② Die Energie muss reichen</h3><p>Die Bewegungsenergie beim Stoß muss mindestens die <strong>Aktivierungsenergie E<sub>A</sub></strong> betragen, um Bindungen zu lockern. Sonst prallen die Teilchen nur ab.</p></figcaption>
+    </figure>
+    <figure class="card">
+      <canvas id="sc3" width="360" height="300"></canvas>
+      <figcaption><h3>③ Die Orientierung muss stimmen</h3><p>Nur wenn die <span class="dot"></span> reaktiven Stellen aufeinandertreffen, kann sich etwas verbinden (<strong>sterischer Faktor</strong>).</p></figcaption>
+    </figure>
+  </div>
+  <div class="callout">
+    <strong>Merke:</strong> Wirksamer Stoß = Zusammenstoß <em>und</em> E ≥ E<sub>A</sub> <em>und</em> richtige Orientierung.
+    Die Geschwindigkeit ist proportional zur Zahl der wirksamen Stöße pro Zeit.
+  </div>
+</section>
+
+<!-- ============ 3. Labor ============ -->
+<section id="labor">
+  <h2>3 · Das Labor: Reaktion A + B → C</h2>
+  <p>Hier kannst du alle Faktoren selbst verändern und live beobachten, wie sich Stoßzahl, wirksame Stöße und Konzentrationen verhalten.</p>
+  <div class="lab">
+    <div class="stage">
+      <canvas id="mainCanvas" width="600" height="400"></canvas>
+      <div class="legend">
+        <span><i class="ring" style="border-color:var(--green)"></i> Reaktion</span>
+        <span><i class="ring" style="border-color:var(--yellow)"></i> zu wenig Energie</span>
+        <span><i class="ring" style="border-color:var(--violet)"></i> falsche Orientierung</span>
+      </div>
+      <div class="stats">
+        <div><b id="sAB">0</b><span>A–B-Stöße / s</span></div>
+        <div><b id="sEff">0</b><span>wirksame / s</span></div>
+        <div><b id="sPct">–</b><span>Anteil wirksam</span></div>
+        <div><b id="sC">0</b><span>Produkt C</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <label>Temperatur <output id="mT-o"></output>
+        <input id="mT" type="range" min="250" max="600" step="5" value="300"></label>
+      <label>Konzentration (Teilchen je Sorte) <output id="mN-o"></output>
+        <input id="mN" type="range" min="5" max="60" step="1" value="30"></label>
+      <label>Volumen / Druck <output id="mV-o"></output>
+        <input id="mV" type="range" min="35" max="100" step="1" value="100"></label>
+      <label>Aktivierungsenergie E<sub>A</sub> <output id="mEa-o"></output>
+        <input id="mEa" type="range" min="0.5" max="5" step="0.1" value="1.5"></label>
+      <label class="check"><input id="mCat" type="checkbox"> Katalysator zugeben (E<sub>A</sub> halbiert)</label>
+      <label class="check"><input id="mOr" type="checkbox" checked> Orientierung berücksichtigen</label>
+      <label>Tempo
+        <select id="mSpeed"><option value="1">1× (Zeitlupe)</option><option value="3" selected>3×</option><option value="6">6×</option></select></label>
+      <div class="btns"><button id="mPause" class="btn sm">⏸ Pause</button><button id="mReset" class="btn sm ghost">↺ Neustart</button></div>
+      <p class="hint">Die Konzentration startet den Versuch neu. Das Volumen wirkt wie ein Kolben: Er drückt die Teilchen zusammen.</p>
+    </div>
+  </div>
+  <div class="stage wide">
+    <canvas id="mainChart" width="600" height="260"></canvas>
+    <p class="hint">Zeitverlauf der Teilchenzahlen (Zeit in simulierten Sekunden).</p>
+  </div>
+</section>
+
+<!-- ============ 4. Faktoren ============ -->
+<section id="faktoren-head">
+  <h2>4 · Was beeinflusst die Reaktionsgeschwindigkeit?</h2>
+  <p>Jeder Faktor wirkt entweder auf die <strong>Zahl der Stöße</strong> oder auf den <strong>Anteil wirksamer Stöße</strong>. Die folgenden vier Experimente zeigen es einzeln. Alle Simulationen laufen im Dauerbetrieb: Verbrauchte Teilchen werden ersetzt, damit sich Reaktionsraten direkt vergleichen lassen.</p>
+</section>
+
+<section id="f-konz" class="factor">
+  <h3>4.1 Konzentration und Druck</h3>
+  <p>Mehr Teilchen im gleichen Volumen (oder gleich viele in einem kleineren Volumen) bedeuten kürzere Wege zwischen den Teilchen und damit <strong>mehr Stöße pro Sekunde</strong>. Bei Gasen entspricht eine Druckerhöhung einer Konzentrationserhöhung.</p>
+  <div class="duo">
+    <div class="stage">
+      <h4>Referenz</h4>
+      <canvas id="kcL" width="600" height="400"></canvas>
+      <div class="stats small">
+        <div><b id="kcL-ab">0</b><span>A–B-Stöße / s</span></div>
+        <div><b id="kcL-rx">0</b><span>Reaktionen / s</span></div>
+      </div>
+    </div>
+    <div class="stage">
+      <h4>Verändert</h4>
+      <canvas id="kcR" width="600" height="400"></canvas>
+      <div class="stats small">
+        <div><b id="kcR-ab">0</b><span>A–B-Stöße / s</span></div>
+        <div><b id="kcR-rx">0</b><span>Reaktionen / s</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel row">
+    <label>Teilchen je Sorte (Konzentration) <output id="kcN-o"></output>
+      <input id="kcN" type="range" min="4" max="30" step="1" value="10"></label>
+    <label>Volumen (Kolben) <output id="kcV-o"></output>
+      <input id="kcV" type="range" min="35" max="100" step="1" value="100"></label>
+  </div>
+  <div class="callout" id="kcInfo"></div>
+  <p class="note">Beide Sorten werden dichter: verdoppelt sich die Konzentration von A <em>und</em> B, steigt die Stoßzahl auf etwa das <strong>Vierfache</strong>. Die Stoßzahl ist proportional zu c(A)·c(B). Der <em>Anteil</em> wirksamer Stöße bleibt gleich.</p>
+</section>
+
+<section id="f-temp" class="factor">
+  <h3>4.2 Temperatur</h3>
+  <p>Temperatur ist ein Maß für die mittlere Bewegungsenergie der Teilchen. Bei höherer Temperatur stoßen sie <strong>häufiger</strong> zusammen, vor allem aber steigt der Anteil der Teilchen mit E ≥ E<sub>A</sub> stark an. Farbe = Geschwindigkeit (blau langsam → rot schnell).</p>
+  <div class="lab">
+    <div class="stage">
+      <canvas id="tSim" width="600" height="400"></canvas>
+      <div class="stats small">
+        <div><b id="tAB">0</b><span>A–B-Stöße / s</span></div>
+        <div><b id="tEff">0</b><span>wirksame / s</span></div>
+        <div><b id="tPct">–</b><span>Anteil wirksam</span></div>
+      </div>
+    </div>
+    <div class="stage">
+      <canvas id="tChart" width="600" height="400"></canvas>
+      <div class="stats small">
+        <div><b id="tF0">–</b><span>Teilchen ≥ E<sub>A</sub> bei 300 K</span></div>
+        <div><b id="tF1">–</b><span>Teilchen ≥ E<sub>A</sub> bei gewählter T</span></div>
+        <div><b id="tX">–</b><span>Faktor</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel row">
+    <label>Temperatur <output id="tT-o"></output>
+      <input id="tT" type="range" min="250" max="600" step="5" value="300"></label>
+    <label>Aktivierungsenergie E<sub>A</sub> <output id="tEa-o"></output>
+      <input id="tEa" type="range" min="1" max="5" step="0.1" value="1.5"></label>
+  </div>
+  <p class="note">Die Fläche unter der Kurve rechts von E<sub>A</sub> (farbig gefüllt) ist der Anteil der Teilchen, die für eine Reaktion energetisch ausreichen. Schon eine kleine Temperaturerhöhung vergrößert sie überproportional.</p>
+  <details>
+    <summary>Rechenbeispiel: RGT-Regel und Arrhenius-Gleichung</summary>
+    <p>Die <strong>RGT-Regel</strong> (Reaktionsgeschwindigkeit-Temperatur-Regel) besagt: Eine Temperaturerhöhung um 10 K verdoppelt bis verdreifacht die Reaktionsgeschwindigkeit. Genauer beschreibt das die <strong>Arrhenius-Gleichung</strong>:</p>
+    <p class="formula">k = A · e<sup>−E<sub>A</sub> / (R·T)</sup> &nbsp;⇒&nbsp; k<sub>2</sub>/k<sub>1</sub> = exp[ E<sub>A</sub>/R · (1/T<sub>1</sub> − 1/T<sub>2</sub>) ]</p>
+    <div class="panel row">
+      <label>E<sub>A</sub> (echte Reaktion) <output id="arEa-o"></output><input id="arEa" type="range" min="20" max="150" step="5" value="50"></label>
+      <label>T<sub>1</sub> <output id="arT1-o"></output><input id="arT1" type="range" min="270" max="400" step="1" value="298"></label>
+      <label>T<sub>2</sub> <output id="arT2-o"></output><input id="arT2" type="range" min="270" max="450" step="1" value="308"></label>
+    </div>
+    <p class="result">Die Reaktion läuft bei T<sub>2</sub> etwa <b id="arRes">–</b>-mal so schnell ab wie bei T<sub>1</sub>.</p>
+    <p class="note">Die Simulation benutzt eine kleine E<sub>A</sub>, damit man Reaktionen überhaupt sehen kann. Echte Reaktionen haben typischerweise 40–100 kJ/mol. Erst dann greift die RGT-Regel.</p>
+  </details>
+</section>
+
+<section id="f-zert" class="factor">
+  <h3>4.3 Zerteilungsgrad (Oberfläche)</h3>
+  <p>Reagiert ein Feststoff mit Gasteilchen oder gelösten Teilchen, können diese nur die <strong>Oberfläche</strong> treffen. Zerkleinert man den Feststoff, wird die gleiche Stoffmenge von einer viel größeren Oberfläche umgeben. Es gibt mehr Angriffsfläche und damit mehr wirksame Stöße. Beide Feststoffe bestehen hier aus genau gleich vielen Teilchen (graue Kugeln). Trifft ein orange Teilchen B wirksam auf ein Feststoffteilchen, leuchtet es grün auf und ist umgesetzt.</p>
+  <div class="duo">
+    <div class="stage">
+      <h4>Ein großer Block</h4>
+      <canvas id="zL" width="400" height="300"></canvas>
+      <div class="stats small"><div><b id="zL-p">0 %</b><span>Feststoff umgesetzt</span></div></div>
+    </div>
+    <div class="stage">
+      <h4 id="zR-h">Fein zerteilt</h4>
+      <canvas id="zR" width="400" height="300"></canvas>
+      <div class="stats small"><div><b id="zR-p">0 %</b><span>Feststoff umgesetzt</span></div></div>
+    </div>
+  </div>
+  <div class="panel row">
+    <label>Zerteilungsgrad rechts <output id="zZ-o"></output>
+      <input id="zZ" type="range" min="1" max="4" step="1" value="3"></label>
+    <div class="btns"><button id="zReset" class="btn sm ghost">↺ Neustart</button></div>
+  </div>
+  <div class="stage wide"><canvas id="zChart" width="600" height="260"></canvas></div>
+  <p class="note">Beispiele aus dem Alltag: Zucker­würfel vs. Puderzucker in Tee, Holzscheit vs. Sägemehl (Staubexplosion!), Brausetablette im Ganzen vs. zerdrückt.</p>
+</section>
+
+<section id="f-kat" class="factor">
+  <h3>4.4 Katalysator</h3>
+  <p>Ein Katalysator ermöglicht einen Reaktionsweg mit <strong>niedrigerer Aktivierungsenergie</strong>. Dadurch reicht bei viel mehr Stößen die vorhandene Energie aus. Er wird dabei nicht verbraucht und verändert die Lage des Gleichgewichts nicht. Temperatur und Konzentration sind in beiden Boxen gleich.</p>
+  <div class="duo">
+    <div class="stage">
+      <h4>Ohne Katalysator</h4>
+      <canvas id="kaL" width="600" height="400"></canvas>
+      <div class="stats small">
+        <div><b id="kaL-pct">–</b><span>Anteil wirksam</span></div>
+        <div><b id="kaL-rx">0</b><span>Reaktionen / s</span></div>
+      </div>
+    </div>
+    <div class="stage">
+      <h4>Mit Katalysator</h4>
+      <canvas id="kaR" width="600" height="400"></canvas>
+      <div class="stats small">
+        <div><b id="kaR-pct">–</b><span>Anteil wirksam</span></div>
+        <div><b id="kaR-rx">0</b><span>Reaktionen / s</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="stage wide">
+    <canvas id="kaChart" width="600" height="300"></canvas>
+    <p class="hint">Energieprofil: Der Weg über den Katalysator hat einen niedrigeren „Berg“.</p>
+  </div>
+  <div class="panel row">
+    <label>Aktivierungsenergie ohne Katalysator <output id="kaEa-o"></output>
+      <input id="kaEa" type="range" min="1.5" max="5" step="0.1" value="2.5"></label>
+  </div>
+</section>
+
+<!-- ============ 5. Fazit ============ -->
+<section id="fazit">
+  <h2>5 · Zusammenfassung</h2>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Faktor</th><th>Erhöhung bewirkt …</th><th>Stoßzahl</th><th>Anteil wirksamer Stöße</th><th>Reaktions­geschwindigkeit</th></tr></thead>
+    <tbody>
+      <tr><td>Konzentration / Druck</td><td>mehr Teilchen pro Volumen</td><td class="up">↑</td><td class="eq">→</td><td class="up">↑</td></tr>
+      <tr><td>Temperatur</td><td>schnellere Teilchen</td><td class="up">↑ (wenig)</td><td class="up">↑↑ (stark)</td><td class="up">↑↑</td></tr>
+      <tr><td>Zerteilungsgrad</td><td>größere Oberfläche</td><td class="up">↑</td><td class="eq">→</td><td class="up">↑</td></tr>
+      <tr><td>Katalysator</td><td>niedrigere E<sub>A</sub></td><td class="eq">→</td><td class="up">↑↑</td><td class="up">↑↑</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 style="margin-top:2.5rem">Teste dein Wissen</h2>
+  <div id="quiz"></div>
+  <p id="quizScore" class="result"></p>
+</section>
+
+</main>
+
+<footer>
+  <p>Interaktive Lernseite zur Stoßtheorie. Alle Simulationen sind vereinfachte 2D-Modelle mit elastischen Stößen; Energie in Einheiten von kT bei 300 K.</p>
+</footer>
+
+<script src="js/engine.js?v=4"></script>
+<script src="js/charts.js?v=4"></script>
+<script src="js/sim-main.js?v=4"></script>
+<script src="js/sim-factors.js?v=4"></script>
+<script src="js/quiz.js?v=4"></script>
+</body>
+</html>
