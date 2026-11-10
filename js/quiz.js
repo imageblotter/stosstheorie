@@ -17,7 +17,7 @@
     { q: 'Warum reagiert Sägemehl schneller mit Sauerstoff als ein Holzblock gleicher Masse?',
       o: ['Sägemehl hat eine höhere Temperatur', 'Sägemehl hat eine viel größere Oberfläche und damit mehr Stoßmöglichkeiten', 'Sägemehl enthält einen Katalysator', 'Sägemehl hat eine niedrigere Aktivierungsenergie'],
       a: 1, e: 'Größere Oberfläche → mehr Stöße mit den Gasteilchen. Die Aktivierungsenergie bleibt gleich.' },
-    { q: 'Was bewirkt ein Katalysator?',
+    { q: 'Was bewirkt ein positiver Katalysator?',
       o: ['Er erhöht die Temperatur', 'Er senkt die Aktivierungsenergie, indem er einen anderen Reaktionsweg ermöglicht', 'Er erhöht die Zahl der Teilchen', 'Er wird bei der Reaktion vollständig verbraucht'],
       a: 1, e: 'Mit niedrigerer E_A ist ein größerer Anteil der Stöße wirksam. Der Katalysator liegt nach der Reaktion unverändert vor.' }
   ];
