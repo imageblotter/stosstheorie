@@ -12,7 +12,7 @@
       o: ['Die Teilchen sind größer', 'Die Aktivierungsenergie sinkt', 'Vor allem, weil deutlich mehr Teilchen die Aktivierungsenergie erreichen', 'Es gibt mehr Teilchen'],
       a: 2, e: 'Die Stoßzahl steigt nur wenig, der Anteil der Teilchen mit E ≥ E_A aber stark (Maxwell-Boltzmann-Verteilung).' },
     { q: 'Was besagt die RGT-Regel?',
-      o: ['+10 K → Reaktionsgeschwindigkeit ca. 2- bis 3-fach', '+10 K → Geschwindigkeit halbiert', '+1 K → Geschwindigkeit verdoppelt', 'Die Temperatur hat bei Reaktionen keinen Einfluss'],
+      o: ['+10 K → Reaktionsgeschwindigkeit ca. 2-fach', '+10 K → Geschwindigkeit halbiert', '+1 K → Geschwindigkeit verdoppelt', 'Die Temperatur hat bei Reaktionen keinen Einfluss'],
       a: 0, e: 'Faustregel für viele Reaktionen bei Raumtemperatur; sie folgt aus der Arrhenius-Gleichung.' },
     { q: 'Warum reagiert Sägemehl schneller mit Sauerstoff als ein Holzblock gleicher Masse?',
       o: ['Sägemehl hat eine höhere Temperatur', 'Sägemehl hat eine viel größere Oberfläche und damit mehr Stoßmöglichkeiten', 'Sägemehl enthält einen Katalysator', 'Sägemehl hat eine niedrigere Aktivierungsenergie'],
